@@ -1,31 +1,41 @@
-import React from 'react';
+import { useState } from 'react';
+import './App.css';
 
-const App = () => {
-    const style = {
-        padding: '100px',
-        display: 'flex',
-        gap: '12px',
-    };
-
-    const squareStyle = {
-        width: '100px',
-        height: '100px',
-        border: '1px solid green',
-        borderRadius: '10px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    };
-
+function App() {
+    const [title, setTitle] = useState('');
+    const [todos, setTodos] = useState([
+        {
+            id: 1,
+            title: 'react를 배워봅시다.',
+        },
+    ]);
     return (
-        <div style={style}>
-            <div style={squareStyle}>감자</div>
-            <div style={squareStyle}>고구마</div>
-            <div style={squareStyle}>오이</div>
-            <div style={squareStyle}>가지</div>
-            <div style={squareStyle}>옥수수</div>
+        <div className="container">
+            <input
+                type="text"
+                value={title}
+                onChange={(event) => {
+                    setTitle(event.target.value);
+                }}
+            />
+            <button
+                onClick={() => {
+                    setTodos([...todos, { id: todos.length + 1, title: title }]);
+                }}
+            >
+                추가하기
+            </button>
+
+            <h1>Todo List</h1>
+            <div className="todos-container">
+                {todos.map((todo) => (
+                    <div className="todo" key={todo.id}>
+                        {todo.title}
+                    </div>
+                ))}
+            </div>
         </div>
     );
-};
+}
 
 export default App;
